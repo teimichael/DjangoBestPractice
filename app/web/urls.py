@@ -20,9 +20,11 @@ from django.urls import path
 
 from service.controllers.index import IndexController
 from service.controllers.upload import UploadController
+from service.controllers.user import UserController
 
 urlpatterns = [
     path('', IndexController.view, name='index'),
+    path('user', UserController.view, name='user'),
     path('upload', UploadController.view, name='upload'),
     path('admin/', admin.site.urls),
 ]

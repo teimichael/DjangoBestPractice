@@ -17,11 +17,8 @@ A scaffold for web development with Django, PostgreSQL, Docker, Gunicorn, and Ng
 │   ├── service
 │   │   ├── __init__.py
 │   │   ├── controllers
-│   │       ├── index.py
-│   │       ├── upload.py
+│   │   ├── models
 │   │   └── templates
-│   │       ├── index.html
-│   │       └── upload.html
 │   ├── web
 │   │   ├── __init__.py
 │   │   ├── asgi.py

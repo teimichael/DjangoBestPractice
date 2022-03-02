@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound, HttpResponseForbidden
+from django.http import HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest
 from django.shortcuts import render
 
 
@@ -11,6 +11,7 @@ class BaseController:
     """
     template = ''
     context = {}
+    status_code = 200
 
     def __init__(self, request, **kwargs):
         """ Init BaseController
@@ -33,7 +34,16 @@ class BaseController:
         return this.response()
 
     def response(self):
-        return render(self.request, self.template, self.context)
+        if self.status_code == 200:
+            return render(self.request, self.template, self.context)
+        elif self.status_code == HttpResponseBadRequest.status_code:
+            return render(self.request, 'error/400.html')
+        elif self.status_code == HttpResponseForbidden.status_code:
+            return render(self.request, 'error/403.html')
+        elif self.status_code == HttpResponseNotFound.status_code:
+            return render(self.request, 'error/404.html')
+        else:
+            return render(self.request, 'error/400.html')
 
     def get(self):
         pass
@@ -41,13 +51,11 @@ class BaseController:
     def post(self):
         pass
 
+    def bad_request(self):
+        self.status_code = HttpResponseBadRequest.status_code
+
     def forbidden(self):
-        return HttpResponseForbidden("Method not allowed")
+        self.status_code = HttpResponseForbidden.status_code
 
-    def page_not_found(self):
-        """ 存在しないページへのリクエスト
-
-        Returns:
-            HttpResponseNotFound:
-        """
-        return HttpResponseNotFound()
+    def not_found(self):
+        self.status_code = HttpResponseNotFound.status_code

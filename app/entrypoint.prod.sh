@@ -10,6 +10,7 @@ if [ "$DATABASE" = "postgres" ]; then
   echo "PostgreSQL started"
 fi
 
+python manage.py makemigrations service
 python manage.py migrate --noinput
 python manage.py collectstatic --no-input --clear
 
