@@ -18,11 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from service.views import index, image_upload
+from service.controllers.index import IndexController
+from service.controllers.upload import UploadController
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('upload', image_upload, name='upload'),
+    path('', IndexController.view, name='index'),
+    path('upload', UploadController.view, name='upload'),
     path('admin/', admin.site.urls),
 ]
 

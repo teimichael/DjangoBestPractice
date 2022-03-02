@@ -1,6 +1,6 @@
 # Django Best Practice
 
-A scaffold for web development with Django, Docker, Gunicorn, and Nginx.
+A scaffold for web development with Django, PostgreSQL, Docker, Gunicorn, and Nginx.
 
 ## Structure
 
@@ -16,7 +16,9 @@ A scaffold for web development with Django, Docker, Gunicorn, and Nginx.
 │   ├── entrypoint.sh
 │   ├── service
 │   │   ├── __init__.py
-│   │   ├── views.py
+│   │   ├── controllers
+│   │       ├── index.py
+│   │       ├── upload.py
 │   │   └── templates
 │   │       ├── index.html
 │   │       └── upload.html
