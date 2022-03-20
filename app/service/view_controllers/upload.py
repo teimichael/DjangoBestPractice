@@ -1,9 +1,9 @@
 from django.core.files.storage import FileSystemStorage
 
-from core.controllers import BaseController
+from core.controllers import ViewBaseController
 
 
-class UploadController(BaseController):
+class UploadViewController(ViewBaseController):
     template = 'upload.html'
 
     def post(self):

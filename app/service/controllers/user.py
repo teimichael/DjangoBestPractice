@@ -1,20 +1,26 @@
+from django.http import JsonResponse
+from rest_framework.decorators import action
+from rest_framework.status import HTTP_200_OK
+
 from core.controllers import BaseController
-from service.models.user import User
+from service.serializers.user import UserSerializer
 
 
 class UserController(BaseController):
-    template = 'user.html'
+    """
+    User Controller
+    """
+    serializer_class = UserSerializer
+    queryset = UserSerializer.queryset
 
-    def post(self):
-        name = self.request.POST.get('name', '')
-        age = self.request.POST.get('age', '0')
-        try:
-            age = int(age)
-        except ValueError:
-            return self.forbidden()
-        user = User(name=name, age=age)
-        user.save()
+    """
+    Custom API
+    """
 
-    def get(self):
-        query_fields = ['id', 'name', 'age']
-        self.context['users'] = list(User.objects.values(*query_fields))
+    @action(detail=True, methods=['GET'], url_path='(?P<name_pk>[^/.]+)')
+    def list_name(self, request, name_pk, **kwargs):
+        data = UserSerializer.get_all_by_name(name_pk)
+        return JsonResponse({
+            "code": HTTP_200_OK,
+            "data": list(data.values())
+        })

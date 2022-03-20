@@ -1,9 +1,17 @@
 from django.http import HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest
 from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
 
 
-class BaseController:
-    """ Base Controller
+class BaseController(ModelViewSet):
+    """
+    Base Controller for restful APIs
+    """
+    pass
+
+
+class ViewBaseController:
+    """ View Base Controller
 
     Attributes:
         template : HTML template
